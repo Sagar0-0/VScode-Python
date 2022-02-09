@@ -25,7 +25,7 @@ def welcomeScreen():
     player_y = int((SCREENHEIGHT - GAME_SPRITES['player'].get_height()) / 2)
     message_x = int((SCREENWIDTH - GAME_SPRITES['message'].get_width()) / 2)
     message_y = int(SCREENHEIGHT * 0.13)
-    basex = 0
+    base_x = 0
     while True:
         for event in pygame.event.get():
             # if user clicks on cross button, close the game
@@ -40,13 +40,47 @@ def welcomeScreen():
                 SCREEN.blit(GAME_SPRITES['background'], (0, 0))
                 SCREEN.blit(GAME_SPRITES['player'], (player_x, player_y))
                 SCREEN.blit(GAME_SPRITES['message'], (message_x, message_y))
-                SCREEN.blit(GAME_SPRITES['base'], (basex, GROUND_Y))
+                SCREEN.blit(GAME_SPRITES['base'], (base_x, GROUND_Y))
                 pygame.display.update()
                 FPS_CLOCK.tick(FPS)
 
 
 def mainGame():
-    pass
+    score = 0
+    player_x = int(SCREENWIDTH / 5)
+    player_y = int(SCREENWIDTH / 2)
+    base_x = 0
+
+    # Create 2 pipes for blit-ting on the screen
+    newPipe1 = getRandomPipe()
+    newPipe2 = getRandomPipe()
+
+    # my List of upper pipes
+    upperPipes = [
+        {'x': SCREENWIDTH + 200, 'y': newPipe1[0]['y']},
+        {'x': SCREENWIDTH + 200 + (SCREENWIDTH / 2), 'y': newPipe2[0]['y']},
+    ]
+    # my List of lower pipes
+    lowerPipes = [
+        {'x': SCREENWIDTH + 200, 'y': newPipe1[1]['y']},
+        {'x': SCREENWIDTH + 200 + (SCREENWIDTH / 2), 'y': newPipe2[1]['y']},
+    ]
+
+
+def getRandomPipe():
+    """
+    Generate positions of two pipes for bli-ting on the screen
+    """
+    pipeHeight = GAME_SPRITES['pipe'][0].get_height()
+    offset = SCREENHEIGHT / 3
+    y2 = offset + random.randrange(0, int(SCREENHEIGHT - GAME_SPRITES['base'].get_height() - 1.2 * offset))
+    pipeX = SCREENWIDTH + 10
+    y1 = pipeHeight - y2 + offset
+    pipe = [
+        {'x': pipeX, 'y': -y1},  # upper Pipe
+        {'x': pipeX, 'y': y2}  # lower Pipe
+    ]
+    return pipe
 
 
 if __name__ == '__main__':
