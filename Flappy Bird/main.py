@@ -8,7 +8,7 @@ FPS = 32
 SCREENWIDTH = 289
 SCREENHEIGHT = 511
 SCREEN = pygame.display.set_mode((SCREENWIDTH, SCREENHEIGHT))
-GROUNDY = SCREENHEIGHT * 0.8
+GROUND_Y = SCREENHEIGHT * 0.8
 GAME_SPRITES = {}
 GAME_SOUNDS = {}
 PLAYER = 'gallery/sprites/bird.png'
@@ -21,10 +21,10 @@ def welcomeScreen():
     Shows welcome images on the screen
     """
 
-    playerx = int(SCREENWIDTH / 5)
-    playery = int((SCREENHEIGHT - GAME_SPRITES['player'].get_height()) / 2)
-    messagex = int((SCREENWIDTH - GAME_SPRITES['message'].get_width()) / 2)
-    messagey = int(SCREENHEIGHT * 0.13)
+    player_x = int(SCREENWIDTH / 5)
+    player_y = int((SCREENHEIGHT - GAME_SPRITES['player'].get_height()) / 2)
+    message_x = int((SCREENWIDTH - GAME_SPRITES['message'].get_width()) / 2)
+    message_y = int(SCREENHEIGHT * 0.13)
     basex = 0
     while True:
         for event in pygame.event.get():
@@ -38,11 +38,11 @@ def welcomeScreen():
                 return
             else:
                 SCREEN.blit(GAME_SPRITES['background'], (0, 0))
-                SCREEN.blit(GAME_SPRITES['player'], (playerx, playery))
-                SCREEN.blit(GAME_SPRITES['message'], (messagex, messagey))
-                SCREEN.blit(GAME_SPRITES['base'], (basex, GROUNDY))
+                SCREEN.blit(GAME_SPRITES['player'], (player_x, player_y))
+                SCREEN.blit(GAME_SPRITES['message'], (message_x, message_y))
+                SCREEN.blit(GAME_SPRITES['base'], (basex, GROUND_Y))
                 pygame.display.update()
-                FPSCLOCK.tick(FPS)
+                FPS_CLOCK.tick(FPS)
 
 
 def mainGame():
@@ -52,7 +52,7 @@ def mainGame():
 if __name__ == '__main__':
     # Main function to start the game
     pygame.init()  # Initialize all pygame's modules
-    FPSCLOCK = pygame.time.Clock()
+    FPS_CLOCK = pygame.time.Clock()
     pygame.display.set_caption('FLappy Bird')
 
     # Game sprites
